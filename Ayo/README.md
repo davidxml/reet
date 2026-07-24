@@ -26,7 +26,12 @@ The base case for this recursion evaluates the seed count of that final pit. If 
 
 At the start of a player's turn, the program evaluates the opponent's row. If the opponent has zero seeds, the active player's array of legal moves must be filtered. The algorithm simulates playing every non-empty pit on the active player's side on cloned board states. If a simulated move results in the opponent's side remaining empty, that move is pruned from the legal options. If the resulting permitted moves array is empty, the game-over sequence is triggered.
 
-### Conclusion 
+### The Setup
+- The Board: The game is played on a carved wooden block containing 12 pits or "houses" arranged in two rows of six (2 × 6).
+- The Seeds: Each of the 12 holes begins with exactly 4 seeds (usually smooth nickernuts or small pebbles), making a total of 48 seeds in play.
+- Ownership: Two players sit opposite each other. Each player controls the row of six pits closest to them.
+
+### Conclusion  
 Ayo Olopon is a remarkable artifact of human ingenuity and intellectual heritage. At its anthropological foundation, it serves as a testament to the sophistication of traditional Yoruba and broader Nigerian society—a cultural tool that seamlessly blended agrarian social rhythms, spiritual metaphysics, and rigorous mathematical pedagogy. The physical wooden board served as an arena where cognitive agility was tested, community bonds were forged, and social status was playfully negotiated through the dichotomy of the Ota and the Ope.
 
 In the contemporary era, the transition of Ayo Olopon from a wooden artifact to a digital matrix underscores the universality of its mathematical design. The game's deterministic, zero-sum nature translates immaculately into the architecture of modern computer science. By modeling the intricate rules of relay sowing and starvation prevention through functional programming, researchers and software developers have preserved a vital piece of African heritage while simultaneously utilizing it to advance educational paradigms via tools like Parson's puzzles. 
