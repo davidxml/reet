@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.serpanalyzer.concurrency.ConcurrencyPrimitivesTest" time="0.101" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.serpanalyzer.concurrency.ConcurrencyPrimitivesTest" time="0.735" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-25-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/daniel/projects/reet/SERP/target/surefire/surefirebooter-20260805144545298_3.jar /home/daniel/projects/reet/SERP/target/surefire 2026-08-05T14-45-41_842-jvmRun1 surefire-20260805144545298_1tmp surefire_0-20260805144545298_2tmp"/>
+    <property name="sun.java.command" value="/home/daniel/projects/reet/SERP/target/surefire/surefirebooter-20260805162057187_3.jar /home/daniel/projects/reet/SERP/target/surefire 2026-08-05T16-20-56_443-jvmRun1 surefire-20260805162057187_1tmp surefire_0-20260805162057187_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/daniel/projects/reet/SERP/target/test-classes:/home/daniel/projects/reet/SERP/target/classes:/home/daniel/.m2/repository/org/json/json/20231013/json-20231013.jar:/home/daniel/.m2/repository/org/apache/pdfbox/pdfbox/3.0.1/pdfbox-3.0.1.jar:/home/daniel/.m2/repository/org/apache/pdfbox/pdfbox-io/3.0.1/pdfbox-io-3.0.1.jar:/home/daniel/.m2/repository/org/apache/pdfbox/fontbox/3.0.1/fontbox-3.0.1.jar:/home/daniel/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/home/daniel/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.1/junit-jupiter-5.10.1.jar:/home/daniel/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.1/junit-jupiter-params-5.10.1.jar:/home/daniel/.m2/repository/com/opencsv/opencsv/5.9/opencsv-5.9.jar:/home/daniel/.m2/repository/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar:/home/daniel/.m2/repository/org/apache/commons/commons-text/1.11.0/commons-text-1.11.0.jar:/home/daniel/.m2/repository/commons-beanutils/commons-beanutils/1.9.4/commons-beanutils-1.9.4.jar:/home/daniel/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar:/home/daniel/.m2/repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar:/home/daniel/.m2/repository/org/knowm/xchart/xchart/3.8.6/xchart-3.8.6.jar:/home/daniel/.m2/repository/de/erichseifert/vectorgraphics2d/VectorGraphics2D/0.13/VectorGraphics2D-0.13.jar:/home/daniel/.m2/repository/de/rototor/pdfbox/graphics2d/3.0.0/graphics2d-3.0.0.jar:/home/daniel/.m2/repository/com/madgag/animated-gif-lib/1.4/animated-gif-lib-1.4.jar:/home/daniel/.m2/repository/org/openjfx/javafx-controls/21.0.1/javafx-controls-21.0.1.jar:/home/daniel/.m2/repository/org/openjfx/javafx-controls/21.0.1/javafx-controls-21.0.1-linux.jar:/home/daniel/.m2/repository/org/openjfx/javafx-graphics/21.0.1/javafx-graphics-21.0.1.jar:/home/daniel/.m2/repository/org/openjfx/javafx-graphics/21.0.1/javafx-graphics-21.0.1-linux.jar:/home/daniel/.m2/repository/org/openjfx/javafx-base/21.0.1/javafx-base-21.0.1.jar:/home/daniel/.m2/repository/org/openjfx/javafx-base/21.0.1/javafx-base-21.0.1-linux.jar:/home/daniel/.m2/repository/org/openjfx/javafx-fxml/21.0.1/javafx-fxml-21.0.1.jar:/home/daniel/.m2/repository/org/openjfx/javafx-fxml/21.0.1/javafx-fxml-21.0.1-linux.jar:/home/daniel/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.jar:/home/daniel/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/daniel/.m2/repository/org/junit/platform/junit-platform-commons/1.10.1/junit-platform-commons-1.10.1.jar:/home/daniel/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/daniel/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.1/junit-jupiter-engine-5.10.1.jar:/home/daniel/.m2/repository/org/junit/platform/junit-platform-engine/1.10.1/junit-platform-engine-1.10.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/daniel/projects/reet/SERP/target/surefire/surefirebooter-20260805144545298_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/daniel/projects/reet/SERP/target/surefire/surefirebooter-20260805162057187_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.3+9-2-26.04.2-Ubuntu"/>
     <property name="user.name" value="daniel"/>
@@ -54,32 +54,32 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testAggregatorConcurrency" classname="com.serpanalyzer.concurrency.ConcurrencyPrimitivesTest" time="0.054">
+  <testcase name="testAggregatorConcurrency" classname="com.serpanalyzer.concurrency.ConcurrencyPrimitivesTest" time="0.416">
     <system-out><![CDATA[[main] Starting aggregator concurrency test
+[pool-2-thread-3] Thread 2 starting increments
+[pool-2-thread-2] Thread 1 starting increments
+[pool-2-thread-8] Thread 7 starting increments
+[pool-2-thread-1] Thread 0 starting increments
 [pool-2-thread-4] Thread 3 starting increments
 [pool-2-thread-6] Thread 5 starting increments
-[pool-2-thread-1] Thread 0 starting increments
-[pool-2-thread-3] Thread 2 starting increments
-[pool-2-thread-5] Thread 4 starting increments
-[pool-2-thread-2] Thread 1 starting increments
 [pool-2-thread-7] Thread 6 starting increments
-[pool-2-thread-8] Thread 7 starting increments
+[pool-2-thread-5] Thread 4 starting increments
 [pool-2-thread-9] Thread 8 starting increments
-[pool-2-thread-5] Thread 4 finished increments
-[pool-2-thread-6] Thread 5 finished increments
-[pool-2-thread-7] Thread 6 finished increments
-[pool-2-thread-1] Thread 0 finished increments
-[pool-2-thread-4] Thread 3 finished increments
-[pool-2-thread-3] Thread 2 finished increments
 [pool-2-thread-10] Thread 9 starting increments
-[pool-2-thread-2] Thread 1 finished increments
 [pool-2-thread-8] Thread 7 finished increments
+[pool-2-thread-3] Thread 2 finished increments
+[pool-2-thread-4] Thread 3 finished increments
+[pool-2-thread-2] Thread 1 finished increments
+[pool-2-thread-6] Thread 5 finished increments
+[pool-2-thread-5] Thread 4 finished increments
+[pool-2-thread-1] Thread 0 finished increments
 [pool-2-thread-9] Thread 8 finished increments
+[pool-2-thread-7] Thread 6 finished increments
 [pool-2-thread-10] Thread 9 finished increments
 [main] Final snapshot: {test-key=10000}
 ]]></system-out>
   </testcase>
-  <testcase name="testBufferSentinel" classname="com.serpanalyzer.concurrency.ConcurrencyPrimitivesTest" time="0.017">
+  <testcase name="testBufferSentinel" classname="com.serpanalyzer.concurrency.ConcurrencyPrimitivesTest" time="0.085">
     <system-out><![CDATA[[main] Starting buffer sentinel test
 [Producer] Producer starting
 [Consumer] Consumer starting
