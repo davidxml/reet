@@ -1,0 +1,16 @@
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/domain/Paper.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/fetcher/SemanticScholarFetcher.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/Buffer.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/ConcurrentMapAggregator.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/domain/AnalysisResult.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/PipelineExecutor.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/reporting/CsvReporter.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/domain/RankedItem.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/reporting/JavaFxDashboard.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/Aggregator.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/domain/Category.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/domain/BenchmarkStats.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/DefaultPipelineExecutor.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/reporting/XChartRenderer.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/reporting/ChartRenderer.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/BlockingQueueBuffer.java
