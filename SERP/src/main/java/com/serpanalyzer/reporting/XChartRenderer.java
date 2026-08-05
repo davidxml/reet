@@ -4,6 +4,8 @@ import com.serpanalyzer.domain.RankedItem;
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.HorizontalBarChart;
+import org.knowm.xchart.HorizontalBarChartBuilder;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 import org.knowm.xchart.style.Styler;
@@ -41,6 +43,36 @@ public class XChartRenderer implements ChartRenderer {
         
         chart.addSeries("Count", labels, counts);
         
+        try {
+            BitmapEncoder.saveBitmap(chart, out.toString(), BitmapEncoder.BitmapFormat.PNG);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save chart", e);
+        }
+    }
+
+    @Override
+    public void rankedBarsHorizontal(String title, List<RankedItem> data, Path out) {
+        HorizontalBarChart chart = new HorizontalBarChartBuilder()
+            .width(800)
+            .height(600)
+            .title(title)
+            .xAxisTitle("Count")
+            .yAxisTitle("Subheading")
+            .build();
+
+        chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
+        chart.getStyler().setPlotContentSize(0.95);
+
+        List<Integer> counts = new ArrayList<>();
+        List<String> labels = new ArrayList<>();
+
+        for (RankedItem item : data) {
+            counts.add(item.count());
+            labels.add(item.label());
+        }
+
+        chart.addSeries("Count", counts, labels);
+
         try {
             BitmapEncoder.saveBitmap(chart, out.toString(), BitmapEncoder.BitmapFormat.PNG);
         } catch (IOException e) {

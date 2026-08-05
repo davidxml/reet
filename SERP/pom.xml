@@ -47,7 +47,7 @@
         <dependency>
             <groupId>org.knowm.xchart</groupId>
             <artifactId>xchart</artifactId>
-            <version>3.8.6</version>
+            <version>3.9.0</version>
         </dependency>
 
         <!-- JavaFX -->
