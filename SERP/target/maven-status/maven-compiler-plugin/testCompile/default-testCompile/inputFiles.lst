@@ -1,2 +1,4 @@
 /home/daniel/projects/reet/SERP/src/test/java/com/serpanalyzer/concurrency/ConcurrencyPrimitivesTest.java
+/home/daniel/projects/reet/SERP/src/test/java/com/serpanalyzer/analyzer/DeepLearningAnalyzerTest.java
+/home/daniel/projects/reet/SERP/src/test/java/com/serpanalyzer/analyzer/HeadingNormalizerTest.java
 /home/daniel/projects/reet/SERP/src/test/java/com/serpanalyzer/analyzer/CrimeReportingAnalyzerTest.java

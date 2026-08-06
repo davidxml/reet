@@ -18,29 +18,35 @@ public class DefaultPipelineExecutor implements PipelineExecutor {
     
     @Override
     public synchronized void submit(Runnable task) {
-        taskCount++;
         if (latch == null) {
-            latch = new CountDownLatch(taskCount);
+            latch = new CountDownLatch(1);
+            taskCount = 0;
         }
+        taskCount++;
+        final CountDownLatch currentLatch = latch;
         executor.submit(() -> {
             try {
                 task.run();
             } finally {
-                latch.countDown();
+                currentLatch.countDown();
             }
         });
     }
     
     @Override
-    public void awaitCompletion() {
+    public synchronized void awaitCompletion() {
         if (latch == null) {
             return;
         }
+        CountDownLatch completionLatch = latch;
         try {
-            latch.await();
+            completionLatch.await();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Interrupted while awaiting completion", e);
+        } finally {
+            taskCount = 0;
+            latch = null;
         }
     }
     

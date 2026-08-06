@@ -3,6 +3,7 @@ package com.serpanalyzer.concurrency;
 import java.util.Optional;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BlockingQueueBuffer<T> implements Buffer<T> {
@@ -31,14 +32,13 @@ public class BlockingQueueBuffer<T> implements Buffer<T> {
     public Optional<T> read() {
         try {
             while (true) {
-                T item = queue.poll();
+                T item = queue.poll(100, TimeUnit.MILLISECONDS);
                 if (item != null) {
                     return Optional.of(item);
                 }
                 if (closed.get() && queue.isEmpty()) {
                     return Optional.empty();
                 }
-                Thread.sleep(10);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
