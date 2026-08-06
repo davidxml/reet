@@ -1,2 +1,5 @@
 com/serpanalyzer/concurrency/ConcurrencyPrimitivesTest.class
+com/serpanalyzer/analyzer/DeepLearningAnalyzerTest$1.class
+com/serpanalyzer/analyzer/DeepLearningAnalyzerTest.class
 com/serpanalyzer/analyzer/CrimeReportingAnalyzerTest.class
+com/serpanalyzer/analyzer/HeadingNormalizerTest.class
