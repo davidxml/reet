@@ -16,9 +16,11 @@ com/serpanalyzer/reporting/JavaFxDashboard.class
 com/serpanalyzer/fetcher/SemanticScholarFetcher.class
 com/serpanalyzer/analyzer/HeadingNormalizer.class
 com/serpanalyzer/domain/Paper.class
+com/serpanalyzer/Main.class
 com/serpanalyzer/analyzer/SubheadingExtractor.class
 com/serpanalyzer/reporting/XChartRenderer.class
 com/serpanalyzer/reporting/CsvReporter.class
+com/serpanalyzer/benchmark/BenchmarkHarness.class
 com/serpanalyzer/reporting/ChartRenderer.class
 com/serpanalyzer/domain/RankedItem.class
 com/serpanalyzer/domain/BenchmarkStats.class

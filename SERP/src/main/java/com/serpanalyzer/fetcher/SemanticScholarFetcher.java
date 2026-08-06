@@ -28,10 +28,16 @@ public class SemanticScholarFetcher {
             String url = "https://api.semanticscholar.org/graph/v1/paper/search?query=" 
                 + encodedQuery + "&fields=title,abstract,url,year,venue&limit=10";
             
-            HttpRequest request = HttpRequest.newBuilder()
+            HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                .GET()
-                .build();
+                .GET();
+            
+            String apiKey = System.getenv("S2_API_KEY");
+            if (apiKey != null && !apiKey.isEmpty()) {
+                requestBuilder.header("x-api-key", apiKey);
+            }
+            
+            HttpRequest request = requestBuilder.build();
             
             Thread.sleep(1000);
             

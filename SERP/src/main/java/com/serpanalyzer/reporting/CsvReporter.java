@@ -1,6 +1,7 @@
 package com.serpanalyzer.reporting;
 
 import com.opencsv.CSVWriter;
+import com.serpanalyzer.domain.BenchmarkStats;
 import com.serpanalyzer.domain.RankedItem;
 
 import java.io.FileWriter;
@@ -21,6 +22,20 @@ public class CsvReporter {
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed to write CSV file", e);
+        }
+    }
+    
+    public static void writeBenchmarkStats(Path outPath, BenchmarkStats stats) {
+        try (CSVWriter writer = new CSVWriter(new FileWriter(outPath.toFile()))) {
+            String[] header = {"Metric", "Value"};
+            writer.writeNext(header);
+            
+            writer.writeNext(new String[]{"Sequential Time (ms)", String.valueOf(stats.sequentialTimeMs())});
+            writer.writeNext(new String[]{"Concurrent Time (ms)", String.valueOf(stats.concurrentTimeMs())});
+            writer.writeNext(new String[]{"Thread Count", String.valueOf(stats.threadCount())});
+            writer.writeNext(new String[]{"Speedup", String.format("%.2fx", (double) stats.sequentialTimeMs() / stats.concurrentTimeMs())});
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write benchmark CSV file", e);
         }
     }
 }

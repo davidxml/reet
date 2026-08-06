@@ -22,6 +22,11 @@ public class XChartRenderer implements ChartRenderer {
     
     @Override
     public void rankedBars(String title, List<RankedItem> data, Path out) {
+        List<RankedItem> safeData = data;
+        if (safeData == null || safeData.isEmpty()) {
+            safeData = List.of(new RankedItem("No Data Found", 0));
+        }
+        
         CategoryChart chart = new CategoryChartBuilder()
             .width(800)
             .height(600)
@@ -36,7 +41,7 @@ public class XChartRenderer implements ChartRenderer {
         List<String> labels = new ArrayList<>();
         List<Integer> counts = new ArrayList<>();
         
-        for (RankedItem item : data) {
+        for (RankedItem item : safeData) {
             labels.add(item.label());
             counts.add(item.count());
         }
@@ -52,6 +57,11 @@ public class XChartRenderer implements ChartRenderer {
 
     @Override
     public void rankedBarsHorizontal(String title, List<RankedItem> data, Path out) {
+        List<RankedItem> safeData = data;
+        if (safeData == null || safeData.isEmpty()) {
+            safeData = List.of(new RankedItem("No Subheadings Found", 0));
+        }
+        
         HorizontalBarChart chart = new HorizontalBarChartBuilder()
             .width(800)
             .height(600)
@@ -66,7 +76,7 @@ public class XChartRenderer implements ChartRenderer {
         List<Integer> counts = new ArrayList<>();
         List<String> labels = new ArrayList<>();
 
-        for (RankedItem item : data) {
+        for (RankedItem item : safeData) {
             counts.add(item.count());
             labels.add(item.label());
         }

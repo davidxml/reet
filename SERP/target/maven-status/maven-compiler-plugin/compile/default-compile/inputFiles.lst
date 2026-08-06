@@ -1,4 +1,5 @@
 /home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/domain/Paper.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/Main.java
 /home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/Buffer.java
 /home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/domain/AnalysisResult.java
 /home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/analyzer/SubheadingExtractor.java
@@ -23,3 +24,4 @@
 /home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/concurrency/BlockingQueueBuffer.java
 /home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/analyzer/DeepLearningOutputFormatter.java
 /home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/fetcher/PdfTextExtractor.java
+/home/daniel/projects/reet/SERP/src/main/java/com/serpanalyzer/benchmark/BenchmarkHarness.java
