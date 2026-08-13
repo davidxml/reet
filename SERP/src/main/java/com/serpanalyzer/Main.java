@@ -79,6 +79,7 @@ public class Main {
                 JavaFxDashboard.appendLog("Crime Reporting papers fetched");
             } catch (Exception e) {
                 JavaFxDashboard.appendLog("[ERROR] Crime fetch failed: " + e.getMessage());
+                crimeBuffer.close(); // Close buffer even on error
             }
         }, "Fetch-Crime");
         
@@ -90,25 +91,39 @@ public class Main {
                 JavaFxDashboard.appendLog("Deep Learning papers fetched");
             } catch (Exception e) {
                 JavaFxDashboard.appendLog("[ERROR] Deep Learning fetch failed: " + e.getMessage());
+                dlBuffer.close(); // Close buffer even on error
             }
         }, "Fetch-DL");
         
         crimeFetchThread.start();
+        // Wait for first fetch to complete before starting second to avoid rate limiting
+        crimeFetchThread.join();
+        
         dlFetchThread.start();
         
         Thread crimeConsumerThread = new Thread(() -> {
+            System.out.println("[CONSUMER-CRIME] Started");
             while (true) {
                 var paperOpt = crimeBuffer.read();
-                if (paperOpt.isEmpty()) break;
+                if (paperOpt.isEmpty()) {
+                    System.out.println("[CONSUMER-CRIME] No more papers, exiting");
+                    break;
+                }
                 crimeReportingPapers.add(paperOpt.get());
+                System.out.println("[CONSUMER-CRIME] Added paper, total: " + crimeReportingPapers.size());
             }
         }, "Consumer-Crime");
         
         Thread dlConsumerThread = new Thread(() -> {
+            System.out.println("[CONSUMER-DL] Started");
             while (true) {
                 var paperOpt = dlBuffer.read();
-                if (paperOpt.isEmpty()) break;
+                if (paperOpt.isEmpty()) {
+                    System.out.println("[CONSUMER-DL] No more papers, exiting");
+                    break;
+                }
                 deepLearningPapers.add(paperOpt.get());
+                System.out.println("[CONSUMER-DL] Added paper, total: " + deepLearningPapers.size());
             }
         }, "Consumer-DL");
         

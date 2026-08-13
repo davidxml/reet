@@ -4,49 +4,40 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DefaultPipelineExecutor implements PipelineExecutor {
     private final ExecutorService executor;
-    private CountDownLatch latch;
-    private int taskCount;
+    private final AtomicInteger pendingTasks;
     
     public DefaultPipelineExecutor() {
         int processors = Runtime.getRuntime().availableProcessors();
         this.executor = Executors.newFixedThreadPool(processors);
-        this.taskCount = 0;
+        this.pendingTasks = new AtomicInteger(0);
     }
     
     @Override
-    public synchronized void submit(Runnable task) {
-        if (latch == null) {
-            latch = new CountDownLatch(1);
-            taskCount = 0;
-        }
-        taskCount++;
-        final CountDownLatch currentLatch = latch;
+    public void submit(Runnable task) {
+        pendingTasks.incrementAndGet();
         executor.submit(() -> {
             try {
                 task.run();
             } finally {
-                currentLatch.countDown();
+                pendingTasks.decrementAndGet();
             }
         });
     }
     
     @Override
-    public synchronized void awaitCompletion() {
-        if (latch == null) {
-            return;
-        }
-        CountDownLatch completionLatch = latch;
+    public void awaitCompletion() {
         try {
-            completionLatch.await();
+            // Busy-wait until all tasks complete
+            while (pendingTasks.get() > 0) {
+                Thread.sleep(10);
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Interrupted while awaiting completion", e);
-        } finally {
-            taskCount = 0;
-            latch = null;
         }
     }
     

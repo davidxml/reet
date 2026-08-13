@@ -42,7 +42,16 @@ public class BenchmarkHarness {
         
         exportResults(stats);
         
-        double speedup = (double) sequentialTime / concurrentTime;
+        double speedup;
+        if (concurrentTime == 0) {
+            if (sequentialTime == 0) {
+                speedup = 1.0; // Both are 0, no speedup or slowdown
+            } else {
+                speedup = Double.POSITIVE_INFINITY; // Concurrent was instant
+            }
+        } else {
+            speedup = (double) sequentialTime / concurrentTime;
+        }
         System.out.println("Speedup: " + String.format("%.2fx", speedup));
         System.out.println("=== Benchmark Complete ===");
         

@@ -33,7 +33,18 @@ public class CsvReporter {
             writer.writeNext(new String[]{"Sequential Time (ms)", String.valueOf(stats.sequentialTimeMs())});
             writer.writeNext(new String[]{"Concurrent Time (ms)", String.valueOf(stats.concurrentTimeMs())});
             writer.writeNext(new String[]{"Thread Count", String.valueOf(stats.threadCount())});
-            writer.writeNext(new String[]{"Speedup", String.format("%.2fx", (double) stats.sequentialTimeMs() / stats.concurrentTimeMs())});
+            
+            String speedupStr;
+            if (stats.concurrentTimeMs() == 0) {
+                if (stats.sequentialTimeMs() == 0) {
+                    speedupStr = "1.00x"; // Both zero, no speedup
+                } else {
+                    speedupStr = "∞"; // Concurrent was instant
+                }
+            } else {
+                speedupStr = String.format("%.2fx", (double) stats.sequentialTimeMs() / stats.concurrentTimeMs());
+            }
+            writer.writeNext(new String[]{"Speedup", speedupStr});
         } catch (IOException e) {
             throw new RuntimeException("Failed to write benchmark CSV file", e);
         }
