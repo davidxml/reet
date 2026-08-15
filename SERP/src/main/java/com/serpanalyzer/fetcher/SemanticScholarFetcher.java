@@ -19,7 +19,7 @@ public class SemanticScholarFetcher {
     private final HttpClient httpClient;
     private static final Object RATE_LIMIT_LOCK = new Object();
     private static long lastRequestTime = 0;
-    private static final long MIN_REQUEST_INTERVAL_MS = 3000; // 3 seconds between requests
+    private static final long MIN_REQUEST_INTERVAL_MS = 1000; // 1 second between requests (Semantic Scholar limit)
     
     public SemanticScholarFetcher() {
         this.httpClient = HttpClient.newHttpClient();
@@ -36,7 +36,7 @@ public class SemanticScholarFetcher {
         
         int maxRetries = 3;
         int retryCount = 0;
-        long retryDelayMs = 3000; // Start with 3 seconds
+        long retryDelayMs = 1000; // Start with 1 second
         
         while (retryCount < maxRetries) {
             try {
