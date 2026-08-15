@@ -58,7 +58,6 @@ public class SemanticScholarFetcher {
                 HttpResponse<String> response;
                 
                 // Enforce rate limiting across all fetcher instances
-                // The entire request must be in the critical section
                 synchronized (RATE_LIMIT_LOCK) {
                     long now = System.currentTimeMillis();
                     long timeSinceLastRequest = now - lastRequestTime;
@@ -67,11 +66,12 @@ public class SemanticScholarFetcher {
                         System.out.println("[FETCHER] Rate limiting: sleeping " + sleepTime + "ms");
                         Thread.sleep(sleepTime);
                     }
-                    
-                    System.out.println("[FETCHER] Fetching from: " + url + " (attempt " + (retryCount + 1) + ")");
-                    response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
                     lastRequestTime = System.currentTimeMillis();
                 }
+                
+                // Perform the actual HTTP request outside the lock to allow parallelism
+                System.out.println("[FETCHER] Fetching from: " + url + " (attempt " + (retryCount + 1) + ")");
+                response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
                 
                 System.out.println("[FETCHER] Response status: " + response.statusCode());
                 

@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,49 +23,135 @@ import java.nio.file.Path;
 public class JavaFxDashboard extends Application {
     private static TextArea logArea;
     private static TilePane chartPane;
+    private static Label paperCountLabel;
+    private static Label threadCountLabel;
+    private static Label speedupLabel;
+    private static Label statusLabel;
     
     @Override
     public void start(Stage primaryStage) {
         BorderPane root = new BorderPane();
-        root.setPadding(new Insets(10));
+        root.setPadding(new Insets(16));
+        root.setStyle("-fx-background-color: #131313;");
         
-        Label titleLabel = new Label("SERP Analyzer Dashboard");
-        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-        titleLabel.setPadding(new Insets(0, 0, 10, 0));
+        // Create main horizontal split: charts on left, logs on right
+        HBox mainLayout = new HBox(16);
         
+        // LEFT SIDE: Charts area
+        VBox chartsSection = new VBox(12);
+        HBox.setHgrow(chartsSection, Priority.ALWAYS);
+        
+        // Header section
+        VBox headerSection = new VBox(4);
+        
+        Label titleLabel = new Label("Execution Overview");
+        titleLabel.setStyle(
+            "-fx-font-size: 26px; " +
+            "-fx-font-weight: 600; " +
+            "-fx-text-fill: #ffffff; " +
+            "-fx-letter-spacing: -0.02em;"
+        );
+        
+        Label subtitle = new Label("Real-time metrics for concurrent multi-threaded data extraction");
+        subtitle.setStyle(
+            "-fx-font-size: 12px; " +
+            "-fx-text-fill: #c4c7c8;"
+        );
+        
+        headerSection.getChildren().addAll(titleLabel, subtitle);
+        
+        // Stats cards row
+        HBox statsRow = createStatsRow();
+        
+        // Chart pane - single column on left
         chartPane = new TilePane();
-        chartPane.setPrefColumns(2);
-        chartPane.setHgap(15);
-        chartPane.setVgap(15);
-        chartPane.setPadding(new Insets(10));
-        chartPane.setAlignment(Pos.CENTER);
+        chartPane.setPrefColumns(1);
+        chartPane.setHgap(12);
+        chartPane.setVgap(12);
+        chartPane.setPadding(new Insets(0));
+        chartPane.setAlignment(Pos.TOP_LEFT);
+        chartPane.setStyle("-fx-background-color: transparent;");
         
         ScrollPane chartScrollPane = new ScrollPane(chartPane);
         chartScrollPane.setFitToWidth(true);
         chartScrollPane.setFitToHeight(true);
-        chartScrollPane.setStyle("-fx-background-color: #f4f4f4;");
+        chartScrollPane.setStyle(
+            "-fx-background: #131313; " +
+            "-fx-background-color: transparent; " +
+            "-fx-border-color: transparent;"
+        );
+        VBox.setVgrow(chartScrollPane, Priority.ALWAYS);
         
+        chartsSection.getChildren().addAll(headerSection, statsRow, chartScrollPane);
+        
+        // RIGHT SIDE: Logs panel
+        VBox logsSection = new VBox(0);
+        logsSection.setPrefWidth(450);
+        logsSection.setMinWidth(400);
+        logsSection.setMaxWidth(500);
+        logsSection.setStyle(
+            "-fx-background-color: #080808; " +
+            "-fx-border-color: rgba(255, 255, 255, 0.15); " +
+            "-fx-border-width: 1; " +
+            "-fx-border-radius: 8; " +
+            "-fx-background-radius: 8;"
+        );
+        
+        // Console header
+        HBox consoleHeader = new HBox(16);
+        consoleHeader.setPadding(new Insets(12, 16, 12, 16));
+        consoleHeader.setAlignment(Pos.CENTER_LEFT);
+        consoleHeader.setStyle(
+            "-fx-background-color: rgba(0, 0, 0, 0.4); " +
+            "-fx-border-color: rgba(255, 255, 255, 0.05); " +
+            "-fx-border-width: 0 0 1 0;"
+        );
+        
+        Label consoleLabel = new Label("LIVE THREAD LOG");
+        consoleLabel.setStyle(
+            "-fx-font-size: 11px; " +
+            "-fx-font-weight: 700; " +
+            "-fx-text-fill: #c4c7c8; " +
+            "-fx-letter-spacing: 0.05em;"
+        );
+        
+        consoleHeader.getChildren().add(consoleLabel);
+        
+        // Log area with green terminal text
         logArea = new TextArea();
         logArea.setEditable(false);
-        logArea.setPrefHeight(200);
         logArea.setWrapText(true);
-        logArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12px;");
+        logArea.setStyle(
+            "-fx-control-inner-background: #080808; " +
+            "-fx-text-fill: #00ff41; " +
+            "-fx-font-family: 'Consolas', 'Monaco', 'Courier New', monospace; " +
+            "-fx-font-size: 11px; " +
+            "-fx-background-color: #080808; " +
+            "-fx-border-color: transparent; " +
+            "-fx-background-insets: 0; " +
+            "-fx-padding: 12; " +
+            "-fx-highlight-fill: rgba(0, 255, 65, 0.2); " +
+            "-fx-highlight-text-fill: #00ff41;"
+        );
+        VBox.setVgrow(logArea, Priority.ALWAYS);
         
-        Label logLabel = new Label("Live Thread Logs:");
-        logLabel.setStyle("-fx-font-weight: bold;");
-        logLabel.setPadding(new Insets(10, 0, 5, 0));
+        logsSection.getChildren().addAll(consoleHeader, logArea);
         
-        VBox logBox = new VBox(5);
-        logBox.getChildren().addAll(logLabel, logArea);
-        logBox.setPadding(new Insets(10, 0, 0, 0));
+        // Add both sections to main layout
+        mainLayout.getChildren().addAll(chartsSection, logsSection);
         
-        VBox topBox = new VBox(10);
-        topBox.getChildren().addAll(titleLabel, chartScrollPane);
+        root.setCenter(mainLayout);
         
-        root.setTop(topBox);
-        root.setCenter(logBox);
+        Scene scene = new Scene(root, 1600, 950);
         
-        Scene scene = new Scene(root, 1280, 900);
+        // Try to load external CSS if available
+        try {
+            String cssPath = getClass().getResource("/dashboard.css").toExternalForm();
+            scene.getStylesheets().add(cssPath);
+        } catch (Exception e) {
+            // CSS file not found, using inline styles only
+        }
+        
         primaryStage.setTitle("SERP Analyzer Dashboard");
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(event -> {
@@ -74,6 +161,89 @@ public class JavaFxDashboard extends Application {
         primaryStage.show();
         
         appendLog("[SYSTEM] Dashboard initialized. Waiting for analysis results...");
+    }
+    
+    private HBox createStatsRow() {
+        HBox statsRow = new HBox(12);
+        statsRow.setAlignment(Pos.CENTER_LEFT);
+        
+        // Stat Card 1: Total Papers
+        VBox paperCard = createStatCard("TOTAL PAPERS", "0", "papers fetched");
+        paperCountLabel = (Label) ((VBox) paperCard.getChildren().get(1)).getChildren().get(0);
+        
+        // Stat Card 2: Active Threads
+        VBox threadCard = createStatCard("THREADS", "0", "concurrent");
+        threadCountLabel = (Label) ((VBox) threadCard.getChildren().get(1)).getChildren().get(0);
+        
+        // Stat Card 3: Speedup Ratio
+        VBox speedupCard = createStatCard("SPEEDUP", "0x", "vs sequential");
+        speedupLabel = (Label) ((VBox) speedupCard.getChildren().get(1)).getChildren().get(0);
+        
+        // Stat Card 4: Status
+        VBox statusCard = createStatCard("STATUS", "IDLE", "awaiting start");
+        statusLabel = (Label) ((VBox) statusCard.getChildren().get(1)).getChildren().get(0);
+        
+        statsRow.getChildren().addAll(paperCard, threadCard, speedupCard, statusCard);
+        
+        return statsRow;
+    }
+    
+    private VBox createStatCard(String label, String value, String subtext) {
+        VBox card = new VBox(6);
+        card.setPadding(new Insets(12));
+        card.setPrefWidth(170);
+        card.setStyle(
+            "-fx-background-color: rgba(255, 255, 255, 0.03); " +
+            "-fx-border-color: rgba(255, 255, 255, 0.08); " +
+            "-fx-border-width: 1; " +
+            "-fx-border-radius: 8; " +
+            "-fx-background-radius: 8;"
+        );
+        
+        Label cardLabel = new Label(label);
+        cardLabel.setStyle(
+            "-fx-font-size: 9px; " +
+            "-fx-font-weight: 700; " +
+            "-fx-text-fill: #8e9192; " +
+            "-fx-letter-spacing: 0.08em;"
+        );
+        
+        VBox valueBox = new VBox(2);
+        
+        Label mainValue = new Label(value);
+        mainValue.setStyle(
+            "-fx-font-size: 20px; " +
+            "-fx-font-weight: 600; " +
+            "-fx-text-fill: #ffffff;"
+        );
+        
+        Label subValue = new Label(subtext);
+        subValue.setStyle(
+            "-fx-font-size: 10px; " +
+            "-fx-text-fill: #8e9192;"
+        );
+        
+        valueBox.getChildren().addAll(mainValue, subValue);
+        card.getChildren().addAll(cardLabel, valueBox);
+        
+        return card;
+    }
+    
+    public static void updateStats(int paperCount, int threadCount, double speedup, String status) {
+        Platform.runLater(() -> {
+            if (paperCountLabel != null) {
+                paperCountLabel.setText(String.valueOf(paperCount));
+            }
+            if (threadCountLabel != null) {
+                threadCountLabel.setText(String.valueOf(threadCount));
+            }
+            if (speedupLabel != null) {
+                speedupLabel.setText(String.format("%.1fx", speedup));
+            }
+            if (statusLabel != null) {
+                statusLabel.setText(status.toUpperCase());
+            }
+        });
     }
     
     public static void appendLog(String message) {
@@ -95,20 +265,33 @@ public class JavaFxDashboard extends Application {
                     try {
                         Image image = new Image(chartFile.toURI().toString());
                         ImageView imageView = new ImageView(image);
-                        imageView.setFitWidth(580);
+                        imageView.setFitWidth(700);
                         imageView.setFitHeight(400);
                         imageView.setPreserveRatio(true);
                         imageView.setSmooth(true);
                         
                         Label label = new Label(chartTitle);
-                        label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-                        label.setAlignment(Pos.CENTER);
+                        label.setStyle(
+                            "-fx-font-size: 15px; " +
+                            "-fx-font-weight: 500; " +
+                            "-fx-text-fill: #ffffff; " +
+                            "-fx-padding: 0 0 8 0;"
+                        );
+                        label.setAlignment(Pos.CENTER_LEFT);
                         label.setMaxWidth(Double.MAX_VALUE);
                         
-                        VBox chartBox = new VBox(5);
+                        VBox chartBox = new VBox(10);
                         chartBox.getChildren().addAll(label, imageView);
-                        chartBox.setAlignment(Pos.CENTER);
-                        chartBox.setStyle("-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-width: 1px; -fx-padding: 10px;");
+                        chartBox.setAlignment(Pos.TOP_LEFT);
+                        chartBox.setPrefWidth(750);
+                        chartBox.setStyle(
+                            "-fx-background-color: rgba(255, 255, 255, 0.04); " +
+                            "-fx-border-color: rgba(255, 255, 255, 0.1); " +
+                            "-fx-border-width: 1; " +
+                            "-fx-border-radius: 12; " +
+                            "-fx-background-radius: 12; " +
+                            "-fx-padding: 20;"
+                        );
                         
                         chartPane.getChildren().add(chartBox);
                         appendLog("[SYSTEM] Chart loaded: " + chartTitle);

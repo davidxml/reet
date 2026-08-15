@@ -27,12 +27,17 @@ public class Task2OutputFormatter {
         List<RankedItem> rankedItems = subheadingCounts.entrySet().stream()
                 .map(entry -> new RankedItem(entry.getKey(), entry.getValue()))
                 .sorted(Comparator.comparingInt(RankedItem::count).reversed())
+                .limit(15) // Limit to top 15 for better visualization
                 .collect(Collectors.toList());
 
         CsvReporter.writeRankedItems(outputDir.resolve("task2-subheadings.csv"), rankedItems);
 
+        String chartTitle = rankedItems.isEmpty() ? 
+            "Task 2: Deep Learning Paper Analysis (No Data)" :
+            "Task 2: Deep Learning Technical Terms";
+        
         chartRenderer.rankedBarsHorizontal(
-                "Task 2: Deep Learning Paper Subheadings",
+                chartTitle,
                 rankedItems,
                 outputDir.resolve("task2-subheadings.png"));
     }

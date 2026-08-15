@@ -44,3 +44,16 @@ Thumbs.db
 
 # Compiled files
 *.class
+
+# Documentation and reports (generated files, not tracked)
+CODE_REVIEW_AND_FIXES.md
+STYLING_GUIDE.md
+PROJECT_DESCRIPTION.md
+GLASSMORPHIC_STYLING.md
+
+# Environment files (contains API keys - NEVER COMMIT)
+.env
+setup-env.sh
+
+# Output directory (generated charts and CSV files)
+output/

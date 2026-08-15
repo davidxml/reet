@@ -1,0 +1,64 @@
+/* SERP Analyzer Dashboard Stylesheet - Glassmorphic Dark Theme */
+
+/* Root styling */
+.root {
+    -fx-background-color: #131313;
+}
+
+/* Scrollbar styling - minimal dark theme */
+.scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button,
+.scroll-bar:horizontal .increment-button,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Text area scrollbar */
+.text-area .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.text-area .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+/* Text Area Corner */
+.text-area .corner {
+    -fx-background-color: #080808;
+}
+
+/* Scroll Pane Corner */
+.scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+/* Scroll Pane Viewport */
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Labels */
+.label {
+    -fx-font-smoothing-type: lcd;
+}

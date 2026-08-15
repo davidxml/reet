@@ -95,12 +95,6 @@ public class Main {
             }
         }, "Fetch-DL");
         
-        crimeFetchThread.start();
-        // Wait for first fetch to complete before starting second to avoid rate limiting
-        crimeFetchThread.join();
-        
-        dlFetchThread.start();
-        
         Thread crimeConsumerThread = new Thread(() -> {
             System.out.println("[CONSUMER-CRIME] Started");
             while (true) {
@@ -127,18 +121,30 @@ public class Main {
             }
         }, "Consumer-DL");
         
+        // Start consumers BEFORE producers to avoid race condition
         crimeConsumerThread.start();
         dlConsumerThread.start();
         
+        // Start both fetch threads
+        crimeFetchThread.start();
+        dlFetchThread.start();
+        
+        // Wait for both fetch threads to complete
         crimeFetchThread.join();
         dlFetchThread.join();
+        
+        // Wait for both consumer threads to complete
         crimeConsumerThread.join();
         dlConsumerThread.join();
         
         JavaFxDashboard.appendLog("Fetched " + crimeReportingPapers.size() + " Crime Reporting papers");
         JavaFxDashboard.appendLog("Fetched " + deepLearningPapers.size() + " Deep Learning papers");
         
+        int totalPapers = crimeReportingPapers.size() + deepLearningPapers.size();
+        JavaFxDashboard.updateStats(totalPapers, 0, 0.0, "FETCHING COMPLETE");
+        
         JavaFxDashboard.appendLog("--- Stage 2: Task 1 - Crime Reporting Analysis ---");
+        JavaFxDashboard.updateStats(totalPapers, Runtime.getRuntime().availableProcessors(), 0.0, "ANALYZING");
         
         Aggregator<String> crimeAggregator = new ConcurrentMapAggregator<>();
         CrimeReportingAnalyzer crimeAnalyzer = new CrimeReportingAnalyzer();
@@ -195,7 +201,10 @@ public class Main {
         JavaFxDashboard.appendLog("Benchmark complete");
         JavaFxDashboard.appendLog("Sequential: " + stats.sequentialTimeMs() + " ms");
         JavaFxDashboard.appendLog("Concurrent: " + stats.concurrentTimeMs() + " ms");
-        JavaFxDashboard.appendLog("Speedup: " + String.format("%.2fx", (double) stats.sequentialTimeMs() / stats.concurrentTimeMs()));
+        double speedup = (double) stats.sequentialTimeMs() / stats.concurrentTimeMs();
+        JavaFxDashboard.appendLog("Speedup: " + String.format("%.2fx", speedup));
+        
+        JavaFxDashboard.updateStats(totalPapers, stats.threadCount(), speedup, "COMPLETE");
         
         JavaFxDashboard.loadChart(OUTPUT_DIR.resolve("benchmark.png"), "Performance Benchmark");
         
